@@ -1,0 +1,95 @@
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a003objeto">Objeto</label></div>
+    <div class="col-md-9">
+        <textarea class="form-control" id="a003objeto" placeholder="Objeto" maxlength="300" required ng-model="inventarioOE.inventario.a003objeto"></textarea>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a003fechaInicial">Fecha Inicial</label></div>
+    <div class="col-md-3">
+        <input type="date" class="form-control" id="a003fechaInicial" placeholder="Fecha Inicial" maxlength="10" required ng-model="inventarioOE.inventario.a003fechaInicial">
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="a003fechaFinal">Fecha Final</label></div>
+    <div class="col-md-3">
+        <input type="date" class="form-control" id="a003fechaFinal" placeholder="Fecha Final" maxlength="10" required ng-model="inventarioOE.inventario.a003fechaFinal">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-6">
+        <label class="control-label" for="ivetT016InventcontaminaList">Contaminantes a inventariar</label></div>
+    <div class="col-md-6">
+        <label class="control-label" for="ivetT007InventariofuenteList">Fuentes a inventariar</label></div>
+</div>
+<div class="form-group required">
+    <div class="col-md-6">
+        <select class="form-control" id="ivetT016InventcontaminaList" placeholder="Contaminantes a inventariar" required multiple data-toggle="tooltip" data-placement="top"
+                title="Para seleccionar varios elementos presione CRTL + CLIC" ng-model="mutipleList.inventcontaminaList">
+            <option ng-repeat="option in LstivetT016InventcontaminaList" ng-selected="obtenerSeleccionMultiple(option.A005CODIGO, mutipleList.inventcontaminaList)"
+                    value="{{option.A005CODIGO}}">{{option.A005SIGLACONTAMINANTE}}. {{option.A005CONTAMINANTE}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <select class="form-control" id="ivetT007InventariofuenteList" placeholder="Contaminantes a inventariar" required multiple data-toggle="tooltip" data-placement="top"
+                title="Para seleccionar varios elementos presione CRTL + CLIC" ng-model="mutipleList.inventariofuenteList">
+            <option ng-repeat="option in LstivetT007InventariofuenteList" ng-selected="obtenerSeleccionMultiple(option.A006CODIGO, mutipleList.inventariofuenteList)"
+                    value="{{option.A006CODIGO}}">{{option.A006FUENTE}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a003descripcionTerritorio">Descripción del territorio</label></div>
+    <div class="col-md-9">
+        <textarea class="form-control" id="a003descripcionTerritorio" placeholder="Descripción del territorio" maxlength="500" required
+                  ng-model="inventarioOE.inventario.a003descripcionTerritorio"></textarea>
+    </div>
+</div>
+<div class="well well-sm">
+    <div class="form-group">
+        <div class="col-md-3">
+            <label class="control-label" for="a003iddivipolaDepto">Departamento</label>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" id="a003iddivipolaDepto" placeholder="Departamento" required ng-model="localizacion.a003iddivipolaDepto" ng-change="listarDivipolaMcpio()">
+                <option ng-repeat="option in Lsta003iddivipolaDepto" ng-selected="obtenerSeleccion(option.A105CODDEPARTAMENTO, localizacion.a003iddivipolaDepto)"
+                        value="{{option.A105CODDEPARTAMENTO}}">{{option.A105DEPARTAMENTO}}
+                </option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="control-label" for="a003iddivipolaMcpio">Municipio</label>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" id="a003iddivipolaMcpio" placeholder="Municipio" required ng-model="inventarioOE.inventario.a003iddivipola.a105codigo" ng-change="cargarGeometria()">
+                <option ng-repeat="option in Lsta003iddivipolaMcpio" ng-selected="obtenerSeleccion(option.A105CODMUNICIPIO, localizacion.a003iddivipolaMcpio)"
+                        value="{{option.A105CODIGO}}">{{option.A105MUNICIPIO}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group required">
+        <div class="col-md-3">
+            <label class="control-label">Geometría</label></div>
+        <div class="col-md-9 text-center">
+            <ng-include src="'app/ive/vista/geometriaInventario.html'"></ng-include>
+        </div>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label">Documento soporte del informe</label>
+    </div>
+    <div class="col-md-9">
+        <a href="{{url}}api/inventario/consultaradjunto?codigoInventario={{inventarioOE.inventario.a003codigo}}&idUsuario={{idUsuario}}" target="_blank" class="btn btn-primary btn-sm col-md-3"
+           ng-show="inventarioOE.inventario.a003codigo > 0" role="button"><span class="glyphicon glyphicon-cloud-download"></span>&nbsp;Descargar</a>
+
+        <label for="adjunto" class="btn btn-warning btn-sm col-md-3" ng-show="!esVisualizar"><span class="glyphicon glyphicon glyphicon-cloud-upload"></span>&nbsp;Cargar Nuevo</label>
+        <input type="file" class="form-control" style="display: none;" id="adjunto" name="adjunto" placeholder="Documento soporte del informe" ngf-select="" ngf-accept="'application/pdf'"
+               ng-model="inventarioOE.adjunto">
+    </div>
+</div>

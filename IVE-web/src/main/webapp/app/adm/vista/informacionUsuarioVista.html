@@ -1,0 +1,141 @@
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a002tipousuario">Tipo de usuario</label>
+    </div>
+    <div class="col-md-3">
+        <select class="form-control" id="a002tipousuario" placeholder="Tipo de usuario" required ng-model="usuarioOE.usuario.a002tipousuario.a102codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta002tipousuario" ng-selected="obtenerSeleccion(option.IDITEM, usuarioOE.usuario.a002tipousuario.a102codigo)" value="{{option.IDITEM}}">
+                {{option.VALORITEM}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="a002autoridadambiental">Autoridad Ambiental a la que pertenece</label>
+    </div>
+    <div class="col-md-3">
+        <select class="form-control" id="a002autoridadambiental" placeholder="Autoridad Ambiental a la que pertenece" required ng-model="usuarioOE.usuario.a002autoridadambiental.a001codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta002autoridadambiental" ng-selected="obtenerSeleccion(option.A001CODIGO, usuarioOE.usuario.a002autoridadambiental.a001codigo)"
+                    value="{{option.A001CODIGO}}">{{option.A001NOMBREAUTAMB}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a002nombre">Nombres</label>
+    </div>
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="a002nombre" placeholder="Nombres" maxlength="50" required ng-model="usuarioOE.usuario.a002nombre">
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="a002apellido">Apellidos</label></div>
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="a002apellido" placeholder="Apellidos" maxlength="100" required ng-model="usuarioOE.usuario.a002apellido">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a002idtipodocumento">Tipo de documento</label>
+    </div>
+    <div class="col-md-3">
+        <select class="form-control" id="a002idtipodocumento" placeholder="Tipo de documento" required ng-model="usuarioOE.usuario.a002idtipodocumento.a102codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta002idtipodocumento" ng-selected="obtenerSeleccion(option.IDITEM, usuarioOE.usuario.a002idtipodocumento.a102codigo)"
+                    value="{{option.IDITEM}}">
+                {{option.VALORITEM}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="a002documento">Documento</label>
+    </div>
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="a002documento" placeholder="Documento" maxlength="10" required
+               ng-change="obtenerAlias()"
+               ng-model="usuarioOE.usuario.a002documento">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a002expedidoen">Lugar de Expedición Documento</label>
+    </div>
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="a002expedidoen" placeholder="Lugar de Expedición Documento" maxlength="80" required ng-model="usuarioOE.usuario.a002expedidoen">
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-3">
+        <label class="control-label" for="a002localizacionDepto">Localización del usuario (Depto.)</label>
+    </div>
+    <div class="col-md-3">
+        <select class="form-control" id="a002localizacionDepto" placeholder="Localización del usuario" required ng-model="localizacion.a002localizacionDepto" ng-change="listarDivipolaMcpio()">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta002localizacionDepto" ng-selected="obtenerSeleccion(option.A105CODDEPARTAMENTO, localizacion.a002localizacionDepto)"
+                    value="{{option.A105CODDEPARTAMENTO}}">{{option.A105DEPARTAMENTO}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="a002localizacionMcpio">Localización del usuario (Mcpio.)</label>
+    </div>
+    <div class="col-md-3">
+        <select class="form-control" id="a002localizacionMcpio" placeholder="Localización del usuario" required ng-model="usuarioOE.usuario.a002localizacion.a105codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta002localizacionMcpio" ng-selected="obtenerSeleccion(option.A105CODMUNICIPIO, localizacion.a002localizacionMcpio)"
+                    value="{{option.A105CODIGO}}">{{option.A105MUNICIPIO}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-3">
+        <label class="control-label" for="a002telefono">Teléfono</label>
+    </div>
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="a002telefono" placeholder="Teléfono" maxlength="20" ng-model="usuarioOE.usuario.a002telefono">
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="a002celular">Nro. Celular</label>
+    </div>
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="a002celular" placeholder="Nro. Celular" maxlength="20" ng-model="usuarioOE.usuario.a002celular">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a002direccioncorresp">Dirección Correspondencia</label>
+    </div>
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="a002direccioncorresp" placeholder="Dirección Correspondencia" maxlength="50" required ng-model="usuarioOE.usuario.a002direccioncorresp">
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="a002correoelectronico">Correo electrónico</label>
+    </div>
+    <div class="col-md-3">
+        <input type="email" class="form-control" id="a002correoelectronico" placeholder="Correo electrónico" maxlength="40" required ng-model="usuarioOE.usuario.a002correoelectronico">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a002usuario">Nombre de usuario (alias)</label>
+    </div>
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="a002usuario" placeholder="Nombre de usuario (alias)" maxlength="15" required readonly ng-model="usuarioOE.usuario.a002usuario">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a002contrasena">Contraseña</label>
+    </div>
+    <div class="col-md-3">
+        <input type="password" class="form-control" id="a002contrasena" placeholder="Contraseña" maxlength="15" required ng-model="usuarioOE.usuario.a002contrasena">
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="confirmaContrasena">Confirmar Contraseña</label>
+    </div>
+    <div class="col-md-3">
+        <input type="password" class="form-control" id="confirmaContrasena" placeholder="Confirmar Contraseña" maxlength="15" ng-model="confirma.a002contrasena" required>
+    </div>
+</div>

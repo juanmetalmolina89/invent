@@ -1,0 +1,79 @@
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a013idcontaminante">Contaminante</label></div>
+    <div class="col-md-3">
+        <select class="form-control" id="a013idcontaminante" placeholder="Contaminante" required ng-model="contaminanteOE.contaminante.a013idcontaminante.a005codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta013idcontaminante" ng-selected="obtenerSeleccion(option.A005CODIGO, contaminanteOE.contaminante.a013idcontaminante.a005codigo)"
+                    value="{{option.A005CODIGO}}">{{option.A005CONTAMINANTE}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-3 required">
+        <label class="control-label" for="a013valorcontaminante">Valor</label></div>
+    <div class="col-md-3">
+        <input type="number" step="any" class="form-control" id="a013valorcontaminante" placeholder="Valor" maxlength="20" min="0" required
+               ng-model="contaminanteOE.contaminante.a013valorcontaminante">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a013factoractividad">Factor de Actividad</label></div>
+    <div class="col-md-3">
+        <input type="number" class="form-control" id="a013factoractividad" placeholder="Factor de actividad" maxlength="6" min="0" required ng-model="contaminanteOE.contaminante.a013factoractividad">
+    </div>
+    <div class="col-md-3 required">
+        <label class="control-label" for="a013undmedfactoractiv">Unidad de medida Factor de Actividad</label></div>
+    <div class="col-md-3">
+        <select class="form-control" id="a013undmedfactoractiv" placeholder="Unidad de medida Factor de Actividad" required ng-model="contaminanteOE.contaminante.a013undmedfactoractiv.a011codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta013undmedfactoractiv" ng-selected="obtenerSeleccion(option.A011CODIGO, contaminanteOE.contaminante.a013undmedfactoractiv.a011codigo)"
+                    value="{{option.A011CODIGO}}">{{option.A011UNIDADMEDIDA}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a013ftemetdfactoractiv">Fuente o método de estimación del Factor de Actividad</label>
+    </div>
+    <div class="col-md-9">
+        <textarea class="form-control" id="a013ftemetdfactoractiv" placeholder="Fuente o método de estimación del Factor de Actividad" maxlength="800" required
+                  ng-model="contaminanteOE.contaminante.a013ftemetdfactoractiv"></textarea>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a013factoremision">Factor de Emisión</label></div>
+    <div class="col-md-3">
+        <input type="number" step="any" class="form-control" id="a013factoremision" placeholder="Factor de Emisión" maxlength="6" min="0" required
+               ng-model="contaminanteOE.contaminante.a013factoremision">
+    </div>
+    <div class="col-md-3 required">
+        <label class="control-label" for="a013undmedfactoremis">Unidad de medida Factor de Emisión</label></div>
+    <div class="col-md-3">
+        <select class="form-control" id="a013undmedfactoremis" placeholder="Unidad de medida Factor de Emisión" required ng-model="contaminanteOE.contaminante.a013undmedfactoremis.a012codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta013undmedfactoremis" ng-selected="obtenerSeleccion(option.A012CODIGO, contaminanteOE.contaminante.a013undmedfactoremis.a012codigo)"
+                    value="{{option.A012CODIGO}}">{{option.A012UNIDADMEDIDA}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a013ftemetdfactoremis">Fuente o método de estimación del Factor de Emisión</label>
+    </div>
+    <div class="col-md-9">
+        <textarea class="form-control" id="a013ftemetdfactoremis" placeholder="Fuente o método de estimación del Factor de Emisión" maxlength="800" required
+                  ng-model="contaminanteOE.contaminante.a013ftemetdfactoremis"></textarea>
+    </div>
+</div>
+<div class="form-group required required">
+    <div class="col-md-3 required">
+        <label class="control-label" for="a013emisiontotal">Valor total de la emisión</label></div>
+    <div class="col-md-9">
+        <input type="number" step="any" class="form-control" id="a013emisiontotal" placeholder="Valor total de la emisión" maxlength="20" min="0" readonly
+               ng-model="contaminanteOE.contaminante.a013emisiontotal">
+    </div>
+</div>

@@ -1,0 +1,9 @@
+IVE-ear/target/
+IVE-ejb/src/test/
+IVE-web/src/test/
+IVE-ejb/target/
+IVE-web/target/
+IVE-web/src/main/webapp/utilidades/componentes
+.idea/
+IVE-ejb/src/main/setup/
+

@@ -1,0 +1,115 @@
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a009nomcatemision">Categoría</label></div>
+    <div class="col-md-9">
+        <textarea class="form-control" id="a009nomcatemision" placeholder="Categoría" maxlength="80" required ng-model="categoriaOE.categoria.a009nomcatemision"></textarea>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a009idtipocatemision">Tipo</label></div>
+    <div class="col-md-9">
+        <select class="form-control" id="a009idtipocatemision" placeholder="Tipo" required ng-model="categoriaOE.categoria.a009idtipocatemision.a102codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta009idtipocatemision" ng-selected="obtenerSeleccion(option.IDITEM, categoriaOE.categoria.a009idtipocatemision.a102codigo)" value="{{option.IDITEM}}">
+                {{option.VALORITEM}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a009desccatemision">Descripción</label></div>
+    <div class="col-md-9">
+        <textarea class="form-control" id="a009desccatemision" placeholder="Descripción" maxlength="200" required ng-model="categoriaOE.categoria.a009desccatemision"></textarea>
+    </div>
+</div>
+<div class="form-group" ng-show="!esFuente(categoriaOE.categoria.a009idtipocatemision.a102codigo, ['FUENTES_DE_AREA', 'FUENTES_NATURALES'])">
+    <div class="col-md-3">
+        <label class="control-label" for="ivetT010CategcombustibleList">Tipo de combustible</label></div>
+    <div class="col-md-9">
+        <select class="form-control" id="ivetT010CategcombustibleList" placeholder="Tipo de combustible"
+                ng-required="esFuente(categoriaOE.categoria.a009idtipocatemision.a102codigo, ['FUENTES_MOVILES'])" multiple data-toggle="tooltip" data-placement="top"
+                title="Para seleccionar varios elementos presione CRTL + CLIC" ng-model="mutipleList.categcombustible">
+            <option ng-repeat="option in LstivetT010CategcombustibleList" ng-selected="obtenerSeleccionMultiple(option.IDITEM, mutipleList.categcombustible)" value="{{option.IDITEM}}">
+                {{option.VALORITEM}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group required" ng-show="esFuente(categoriaOE.categoria.a009idtipocatemision.a102codigo, ['FUENTES_FIJAS'])">
+    <div class="col-md-3">
+        <label class="control-label" for="ivetT017CatgemisCiiuList">Código CIIU</label>
+    </div>
+    <div class="col-md-9">
+        <select class="form-control" id="ivetT017CatgemisCiiuList" placeholder="Código CIIU" ng-required="esFuente(categoriaOE.categoria.a009idtipocatemision.a102codigo, ['FUENTES_FIJAS'])" multiple
+                data-toggle="tooltip" data-placement="top" title="Para seleccionar varios elementos presione CRTL + CLIC" ng-model="mutipleList.codigociiuList">
+            <option ng-repeat="option in LstivetT017CatgemisCiiuList | orderBy: 'A108CODIGOCIIU'" ng-selected="obtenerSeleccionMultiple(option.A108CODIGO, mutipleList.codigociiuList)"
+                    value="{{option.A108CODIGO}}">{{option.A108CODIGOCIIU}}. {{option.A108DESCRIPCIONCIIU}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group required" ng-show="esFuente(categoriaOE.categoria.a009idtipocatemision.a102codigo, ['FUENTES_MOVILES'])">
+    <div class="col-md-3">
+        <label class="control-label" for="a009cilindraje">Cilindraje</label>
+    </div>
+    <div class="col-md-3">
+        <input type="number" class="form-control" id="a009cilindraje" placeholder="Cilindraje" maxlength="2" min="0"
+               ng-required="esFuente(categoriaOE.categoria.a009idtipocatemision.a102codigo, ['FUENTES_MOVILES'])" ng-model="categoriaOE.categoria.a009cilindraje">
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="a009aniomodelo">Año modelo</label>
+    </div>
+    <div class="col-md-3">
+        <input type="number" class="form-control" id="a009aniomodelo" placeholder="Año modelo" maxlength="4" min="0"
+               ng-required="esFuente(categoriaOE.categoria.a009idtipocatemision.a102codigo, ['FUENTES_MOVILES'])" ng-model="categoriaOE.categoria.a009aniomodelo">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a009nrofuentes">Numero de fuentes estimados</label>
+    </div>
+    <div class="col-md-3">
+        <input type="number" class="form-control" id="a009nrofuentes" placeholder="Numero de fuentes estimados" maxlength="6" min="0" required ng-model="categoriaOE.categoria.a009nrofuentes">
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a009detmetodfuentes">Método de estimación del número de fuentes</label>
+    </div>
+    <div class="col-md-9">
+        <textarea class="form-control" id="a009detmetodfuentes" placeholder="Método de estimación del número de fuentes" maxlength="800" required
+                  ng-model="categoriaOE.categoria.a009detmetodfuentes"></textarea>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a009idmetodoemision">Método con el que se determinó la emisión</label>
+    </div>
+    <div class="col-md-9">
+        <select class="form-control" id="a009idmetodoemision" placeholder="Método con el que se determinó la emisión" required ng-model="categoriaOE.categoria.a009idmetodoemision.a008codigo">
+            <option value=""></option>
+            <option ng-repeat="option in Lsta009idmetodoemision" ng-selected="obtenerSeleccion(option.A008CODIGO, categoriaOE.categoria.a009idmetodoemision.a008codigo)"
+                    value="{{option.A008CODIGO}}">
+                {{option.A008METODODETEMISION}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group required">
+    <div class="col-md-3">
+        <label class="control-label" for="a009observacion">Observaciones</label>
+    </div>
+    <div class="col-md-9">
+        <textarea class="form-control" id="a009observacion" placeholder="Observaciones" maxlength="2000" required ng-model="categoriaOE.categoria.a009observacion"></textarea>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-3">
+        <label class="control-label" for="a009totalemision">Emisión Total de la Categoría</label>
+    </div>
+    <div class="col-md-9">
+        <input type="number" class="form-control" id="a009totalemision" placeholder="Emisión Total de la Categoría" maxlength="12" min="0" readonly ng-model="categoriaOE.categoria.a009totalemision">
+    </div>
+</div>

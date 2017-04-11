@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h3 class="panel-heading-btn panel-title">Listado Usuarios</h3>
+                </div>
+                <div class="pull-right">
+                    <a href="#/registrarUsuario" class="btn btn-primary" role="button" ng-show="esAutorizado(['ADMINISTRADOR_SISTEMA', 'ADMISTRADOR_AUTORIDAD_AMBIENTAL', 'FUNCIONARIO_MADS'])">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp;Agregar Nuevo Usuario</a>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div class="panel-body text-center">
+
+                <form class="form-inline" ng-submit="consultarGrilla(busquedaOE)">
+                    <div class="form-group">
+                        <label class="control-label" for="palabraClave">Término de búsqueda</label>
+                        <input type="text" class="form-control" id="palabraClave" placeholder="Nombres, Apellidos o Documento" maxlength="30" ng-model="busquedaOE.palabraClave">
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
+
+            </div>
+
+            <!-- Table -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Documento</th>
+                    <th>Autoridad Ambiental</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <colgroup>
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                    <col class="col-md-3">
+                </colgroup>
+                <tr ng-repeat="usuarioOS in objetoSalida.respuesta.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                    <td>{{usuarioOS.A002NOMBRE}}</td>
+                    <td>{{usuarioOS.A002APELLIDO}}</td>
+                    <td>{{usuarioOS.A002DOCUMENTO}}</td>
+                    <td>{{usuarioOS.AUTORIDADAMBIENTAL}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="#/actualizarUsuario/{{usuarioOS.A002CODIGO}}" class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="top"
+                               title="Editar Usuario"
+                               ng-show="esAutorizado(['TODOS'])">
+                                <span class="glyphicon glyphicon-edit"></span></a>
+                            <button type="button" class="btn btn-danger" ng-click="eliminarUsuario(usuarioOS.A002CODIGO)" data-toggle="tooltip" data-placement="top"
+                                    title="Eliminar Usuario"
+                                    ng-show="esAutorizado(['ADMINISTRADOR_SISTEMA', 'ADMISTRADOR_AUTORIDAD_AMBIENTAL', 'FUNCIONARIO_MADS'])">
+                                <span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="panel-footer text-center">
+                <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+</div>

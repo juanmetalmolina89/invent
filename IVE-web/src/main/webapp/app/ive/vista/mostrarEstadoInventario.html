@@ -1,0 +1,24 @@
+<div ng-show="!esRechazado(InventarioOS.A003ESTADO_INVENTARIO)">{{calcularEstadoRegistro(InventarioOS.A003ESTADO_INVENTARIO)}}</div>
+
+<div ng-show="esRechazado(InventarioOS.A003ESTADO_INVENTARIO)">
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" ng-click="mostrarMotivoRechazoInventario(InventarioOS.A003CODIGO)" data-toggle="tooltip" data-placement="top" title="Ver Motivo Rechazo">
+        <span class="glyphicon glyphicon-info-sign"></span>&nbsp;{{calcularEstadoRegistro(InventarioOS.A003ESTADO_INVENTARIO)}}
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="motivoRechazo{{InventarioOS.A003CODIGO}}" tabindex="-1" role="dialog" aria-labelledby="motivoRechazoLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="motivoRechazoLabel">Motivo Rechazo</h4>
+                </div>
+                <div class="modal-body text-justify">
+                    {{observacionesRechazo(InventarioOS.A003OBS_RECHAZO)}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

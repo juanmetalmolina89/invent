@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="modal fade" id="aprobarRechazarInventario{{InventarioOS.A003CODIGO}}" tabindex="-1" role="dialog" aria-labelledby="aprobarRechazarInventario">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="aprobarRechazarInventario">Aprobar Inventario</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" ng-submit="enviarAprobarRechazarInventario(InventarioOS.A003CODIGO)">
+
+                    <div class="form-group required">
+                        <div class="col-md-3">
+                            <label class="control-label" for="a003estadoInventario">Estado Inventario</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" id="a003estadoInventario" placeholder="Estado Inventario" required ng-model="inventarioOE.inventario.a003estadoInventario.a102codigo">
+                                <option value=""></option>
+                                <option ng-repeat="option in Lsta003estadoInventario | filter:esRechazadoAprobado"
+                                        ng-selected="obtenerSeleccion(option.IDITEM, inventarioOE.inventario.a003estadoInventario.a102codigo)"
+                                        value="{{option.IDITEM}}">{{option.VALORITEM}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group required" ng-show="esRechazado(inventarioOE.inventario.a003estadoInventario.a102codigo)">
+                        <div class="col-md-3">
+                            <label class="control-label" for="a003obsRechazo">Motivo Rechazo</label></div>
+                        <div class="col-md-9">
+                            <textarea class="form-control" id="a003obsRechazo" placeholder="Motivo Rechazo" maxlength="1024"
+                                      ng-required="esRechazado(inventarioOE.inventario.a003estadoInventario.a102codigo)"
+                                      ng-model="inventarioOE.inventario.a003obsRechazo"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

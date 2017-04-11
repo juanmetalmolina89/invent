@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h3 class="panel-heading-btn panel-title">Listado Categorias</h3>
+                </div>
+                <div class="pull-right">
+                    <a href="#/consultarInventario/" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Atrás</a>
+                    <a href="#/registrarCategoria/{{idInventario}}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-plus"></span>&nbsp;Agregar Nueva Categoría</a>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div class="panel-body text-center">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <blockquote class="text-left">
+                                <footer><strong><a href="#/consultarInventario/"><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp;Inventario</a></strong>
+                                    <div class="ellipsis" data-toggle="tooltip" data-placement="top" title="{{inventarioOE.inventario.a003objeto}}"><cite>{{inventarioOE.inventario.a003objeto}}</cite>
+                                    </div>
+                                </footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="form-inline" ng-submit="consultarGrilla(busquedaOE)">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="palabraClave" placeholder="Término de búsqueda" maxlength="30" ng-model="busquedaOE.palabraClave">
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
+            </div>
+
+            <!-- Table -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Tipo</th>
+                    <th>Tipo Combustible</th>
+                    <th>Numero Fuentes Estimadas</th>
+                    <th>Acciones</th>
+                </tr>
+                <colgroup>
+                    <col class="col-md-3">
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                    <col class="col-md-3">
+                </colgroup>
+                </thead>
+                <tbody>
+                <tr ng-repeat="CategoriaOS in objetoSalida.respuesta.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                    <td>{{CategoriaOS.A009NOMCATEMISION}}</td>
+                    <td>{{CategoriaOS.DESC_TIPO_CAT_EMISION}}</td>
+                    <td>{{CategoriaOS.TIPO_COMBUSTIBLE}}</td>
+                    <td>{{CategoriaOS.A009NROFUENTES}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="#/actualizarCategoria/{{idInventario}}/{{CategoriaOS.A009CODIGO}}" class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="top"
+                               title="Editar Categoria"><span class="glyphicon glyphicon-edit"></span></a>
+                            <button type="button" class="btn btn-danger" ng-click="eliminarCategoria(CategoriaOS.A009CODIGO)" data-toggle="tooltip" data-placement="top" title="Eliminar Categoria">
+                                <span class="glyphicon glyphicon-remove"></span></button>
+                            <a href="#/consultarContaminante/{{idInventario}}/{{CategoriaOS.A009CODIGO}}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="top"
+                               title="Gestionar Contaminantes"><span class="glyphicon glyphicon-list"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="panel-footer text-center">
+                <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+</div>

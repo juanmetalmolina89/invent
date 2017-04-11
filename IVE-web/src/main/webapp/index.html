@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="invent">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Language" content="es"/>
+    <title>Inventario Emisiones - MADS</title>
+    <meta name="description" content="Inventario Emisiones">
+    <meta name="keywords" content="Inventario Emisiones">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.ico"/>
+
+    <!-- JQuery -->
+    <script src="utilidades/componentes/jquery/jquery.min.js"></script>
+
+    <!-- Angular -->
+    <script src="utilidades/componentes/angular/angular.min.js"></script>
+    <script src="utilidades/componentes/angular-route/angular-route.min.js"></script>
+    <script src="utilidades/componentes/angular-animate/angular-animate.min.js"></script>
+    <script src="utilidades/componentes/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="utilidades/componentes/angular-jwt/dist/angular-jwt.min.js"></script>
+    <script src="utilidades/componentes/a0-angular-storage/dist/angular-storage.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="utilidades/componentes/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="utilidades/componentes/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="utilidades/componentes/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="utilidades/componentes/bootstrap/dist/css/bootstrap-theme.css">
+
+    <!-- sweetalert -->
+    <script src="utilidades/componentes/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="utilidades/componentes/sweetalert/dist/sweetalert.css">
+
+    <!-- toastr -->
+    <script src="utilidades/componentes/toastr/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="utilidades/componentes/toastr/toastr.min.css">
+
+    <!-- GEO -->
+    <script src="geometria/scripts/vendor.js"></script>
+    <script src="geometria/scripts/scripts.js"></script>
+    <link rel="stylesheet" type="text/css" href="geometria/styles/app.css">
+    <link rel="stylesheet" type="text/css" href="geometria/styles/vendor.css">
+
+    <!--File-->
+    <script src="utilidades/componentes/ng-file-upload/ng-file-upload.min.js"></script>
+
+    <!-- App -->
+    <link rel="stylesheet" type="text/css" href="utilidades/css/app.css">
+    <link rel="stylesheet" type="text/css" href="utilidades/css/sticky-footer.css">
+
+    <script src="app/app.js"></script>
+
+    <script src="app/comun/controlador/comunControlador.js"></script>
+    <script src="app/comun/servicio/comunServicio.js"></script>
+
+    <script src="app/adm/controlador/admUsuarioControlador.js"></script>
+    <script src="app/adm/servicio/admUsuarioServicio.js"></script>
+
+    <script src="app/ive/controlador/inventarioControlador.js"></script>
+    <script src="app/ive/servicio/inventarioServicio.js"></script>
+
+    <script src="app/cat/controlador/categoriaControlador.js"></script>
+    <script src="app/cat/servicio/categoriaServicio.js"></script>
+
+    <script src="app/cont/controlador/contaminanteControlador.js"></script>
+    <script src="app/cont/servicio/contaminanteServicio.js"></script>
+
+    <script src="app/rpt/controlador/reporteControlador.js"></script>
+    <script src="app/rpt/servicio/reporteServicio.js"></script>
+
+    <script src="app/utl/servicio/utlListadosServicio.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+
+    <div class="container-fluid">
+        <div class="hidden-xs col-md-2 vertical-align">&nbsp;</div>
+        <div class="col-xs-2 col-md-2 vertical-align">
+            <a href="http://www.siac.gov.co/" target="_blank"><img class="img-responsive col-xs-12 col-md-12" max src="utilidades/img/logo.jpg"></a></div>
+        <div class="col-xs-2 col-md-2 vertical-align">
+            <img class="img-responsive col-xs-12 col-md-12" src="utilidades/img/04-inventario.png"></div>
+        <div class="col-xs-2 col-md-2 vertical-align">
+            <a href="http://www.minambiente.gov.co" target="_blank"><img class="img-responsive col-xs-12 col-md-12" src="utilidades/img/MinAmbientelogo.png"></a></div>
+        <div class="col-xs-2 col-md-2 vertical-align">
+            <a href="http://www.minambiente.gov.co" target="_blank"><img class="img-responsive col-xs-12 col-md-12" src="utilidades/img/todosporunpaislogo.png"></a></div>
+        <div class="hidden-xs col-md-2 vertical-align">&nbsp;</div>
+    </div>
+
+    <div class="container-fluid" ng-controller="comunControlador">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <span><img height="16px" src="http://capacitacion.siac.ideam.gov.co/SIAC/home/img/plantilla%201/siacmenuico.png"> </span>
+            </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <div class="navbar-left" ng-show="esAutenticado()">
+                <a href="#/modificarUsuario" class="btn btn-primary navbar-btn" role="button"
+                   ng-show="esAutorizado(['ADMINISTRADOR_SISTEMA', 'ADMISTRADOR_AUTORIDAD_AMBIENTAL', 'FUNCIONARIO_MADS', 'PUBLICADOR_AUTORIDAD_AMBIENTAL'])">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Usuarios</a>
+                <a href="#/consultarInventario" class="btn btn-primary navbar-btn" role="button" ng-show="esAutorizado(['TODOS'])">
+                    <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>&nbsp;Inventarios</a>
+                <a href="#/consultarReporte" class="btn btn-primary navbar-btn" role="button" ng-show="esAutorizado(['TODOS'])">
+                    <span class="glyphicon glyphicon-file" aria-hidden="true"></span>&nbsp;Reportes</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/"><span ng-show="esAutenticado()">Bienvenido, {{obtenerSesion().nombre}}</span></a></li>
+                <li ng-show="!esAutenticado()"><a href="#/ingresarSistema">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Ingresar</a></li>
+                <li ng-show="esAutenticado()"><a href="#/" ng-click="cerrarSesion()">
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Salir</a></li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
+<div class="container-fluid">
+    <div ng-view></div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <img class="img-responsive" src="utilidades/img/footer.png">
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

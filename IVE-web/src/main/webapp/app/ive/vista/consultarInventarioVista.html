@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h3 class="panel-heading-btn panel-title">Listado Inventarios</h3>
+                </div>
+                <div class="pull-right">
+                    <a href="#/registrarInventario" class="btn btn-primary" role="button" ng-show="esAutorizado(['PUBLICADOR_AUTORIDAD_AMBIENTAL'])">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp;Agregar Nuevo Inventario</a>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div class="panel-body text-center">
+
+                <form class="form-inline" ng-submit="consultarGrilla(busquedaOE)">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="palabraClave" placeholder="Término de búsqueda" maxlength="30" ng-model="busquedaOE.palabraClave">
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
+
+            </div>
+
+            <!-- Table -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Objeto</th>
+                    <th>Departamento Municipio</th>
+                    <th>Fecha inicio</th>
+                    <th>Estado</th>
+                    <th>Autoridad Ambiental</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <colgroup>
+                    <col class="col-md-4">
+                    <col class="col-md-1">
+                    <col class="col-md-1">
+                    <col class="col-md-1">
+                    <col class="col-md-1">
+                    <col class="col-md-4">
+                </colgroup>
+                <tr ng-repeat="InventarioOS in objetoSalida.respuesta.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
+                    ng-class="calcularColorRegistro(InventarioOS.A003ESTADO_INVENTARIO)">
+                    <td>{{InventarioOS.A003OBJETO}}</td>
+                    <td>{{InventarioOS.DEPTO_LOCALIZACION}} / {{InventarioOS.MCIPIO_LOCALIZACION}}</td>
+                    <td>{{InventarioOS.A003FECHA_INICIAL | date:'MM/dd/yyyy'}}</td>
+                    <td>
+                        <ng-include src="'app/ive/vista/mostrarEstadoInventario.html'"></ng-include>
+                    </td>
+                    <td>{{InventarioOS.SIGLA_AA}}</td>
+                    <td>
+                        <div class="btn-group">
+
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip"
+                                        data-placement="top" title="Ver Detalle">
+                                    <span class="glyphicon glyphicon-zoom-in"></span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#/visualizarInventario/{{InventarioOS.A003CODIGO}}" data-toggle="tooltip" data-placement="top" title="Ver Detalle Inventario"
+                                           ng-show="esAutorizado(['TODOS'])"><span class="glyphicon glyphicon-zoom-in"></span>&nbsp;Inventario</a>
+                                    </li>
+                                    <li><a href="{{url}}api/reporte/generarreporteinventario?idUsuario={{idUsuario}}&ci={{InventarioOS.A003CODIGO}}&idReporte=33"
+                                           target="_blank" data-toggle="tooltip" data-placement="top" title="Descargar Detalle Contaminantes" ng-show="esAutorizado(['TODOS'])">
+                                        <span class="glyphicon glyphicon-cloud-download"></span>&nbsp;Contaminantes</a>
+                                    </li>
+                                    <li><a href="{{url}}api/reporte/generarreporteinventario?idUsuario={{idUsuario}}&ci={{InventarioOS.A003CODIGO}}&idReporte=34"
+                                           target="_blank" data-toggle="tooltip" data-placement="top" title="Descargar Detalle Categorias" ng-show="esAutorizado(['TODOS'])">
+                                        <span class="glyphicon glyphicon-cloud-download"></span>&nbsp;Categorias</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="#/actualizarInventario/{{InventarioOS.A003CODIGO}}" class="btn btn-warning" role="button" data-toggle="tooltip" data-placement="top"
+                               title="Editar Inventario"
+                               ng-show="esAutorizado(['PUBLICADOR_AUTORIDAD_AMBIENTAL']) && esEstado(InventarioOS.A003ESTADO_INVENTARIO, ['EN_DILIGENCIAMIENTO', 'RECHAZADO'])">
+                                <span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="#/consultarCategoria/{{InventarioOS.A003CODIGO}}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="top"
+                               title="Gestionar Categorías"
+                               ng-show="esAutorizado(['PUBLICADOR_AUTORIDAD_AMBIENTAL']) && esEstado(InventarioOS.A003ESTADO_INVENTARIO, ['EN_DILIGENCIAMIENTO', 'RECHAZADO'])">
+                                <span class="glyphicon glyphicon-list"></span></a>
+                            <button type="button" class="btn btn-success" ng-click="mostrarAprobarRechazarInventario(InventarioOS.A003CODIGO)" data-toggle="tooltip" data-placement="top"
+                                    title="Aprobar o Rechazar Inventario"
+                                    ng-show="esAutorizado(['FUNCIONARIO_MADS']) && esEstado(InventarioOS.A003ESTADO_INVENTARIO, ['PENDIENTE_APROBACION'])">
+                                <span class="glyphicon glyphicon-ok"></span></button>
+                            <button type="button" class="btn btn-success" ng-click="solicitarAprobacionInventario(InventarioOS.A003CODIGO)" data-toggle="tooltip" data-placement="top"
+                                    title="Solicitar Aprobación Inventario"
+                                    ng-show="esAutorizado(['PUBLICADOR_AUTORIDAD_AMBIENTAL']) && esEstado(InventarioOS.A003ESTADO_INVENTARIO, ['EN_DILIGENCIAMIENTO'])">
+                                <span class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                        <ng-include src="'app/ive/vista/aprobarRechazarInventario.html'"></ng-include>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="panel-footer text-center">
+                <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+</div>

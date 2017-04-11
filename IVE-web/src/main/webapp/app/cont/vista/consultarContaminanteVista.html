@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h3 class="panel-heading-btn panel-title">Listado Contaminantes</h3>
+                </div>
+                <div class="pull-right">
+                    <a href="#/consultarCategoria/{{idInventario}}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;Atrás</a>
+                    <a href="#/registrarContaminante/{{idInventario}}/{{idCategoria}}" class="btn btn-primary" role="button">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp;Agregar NuevoContaminante</a>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div class="panel-body text-center">
+
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <blockquote class="text-left">
+                                <footer><strong><a href="#/consultarInventario/"><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp;Inventario</a></strong>
+                                    <div class="ellipsis" data-toggle="tooltip" data-placement="top" title="{{inventarioOE.inventario.a003objeto}}"><cite>{{inventarioOE.inventario.a003objeto}}</cite>
+                                    </div>
+                                </footer>
+                            </blockquote>
+                        </div>
+
+                        <div class="col-md-6">
+                            <blockquote class="text-left">
+                                <footer><strong><a href="#/consultarCategoria/{{idInventario}}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp;Categoria</a></strong>
+                                    <div class="ellipsis" data-toggle="tooltip" data-placement="top" title="{{categoriaOE.categoria.a009nomcatemision}}"><cite>{{categoriaOE.categoria.a009nomcatemision}}</cite>
+                                    </div>
+                                </footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="form-inline" ng-submit="consultarGrilla(busquedaOE)">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="palabraClave" placeholder="Término de búsqueda" maxlength="30" ng-model="busquedaOE.palabraClave">
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
+            </div>
+
+            <!-- Table -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Contaminante</th>
+                    <th>Factor de Actividad</th>
+                    <th>UM FA</th>
+                    <th>Factor de Emisión</th>
+                    <th>UM FE</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+                <colgroup>
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                    <col class="col-md-1">
+                    <col class="col-md-1">
+                    <col class="col-md-1">
+                    <col class="col-md-3">
+                </colgroup>
+                </thead>
+                <tbody>
+                <tr ng-repeat="ContaminanteOS in objetoSalida.respuesta.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                    <td>{{ContaminanteOS.A005CONTAMINANTE}}</td>
+                    <td>{{ContaminanteOS.A013FTEMETDFACTORACTIV}}</td>
+                    <td>{{ContaminanteOS.A013UNDMEDFACTORACTIV}}</td>
+                    <td>{{ContaminanteOS.A013FTEMETDFACTOREMIS}}</td>
+                    <td>{{ContaminanteOS.A013UNDMEDFACTOREMIS}}</td>
+                    <td>{{ContaminanteOS.A013EMISIONTOTAL}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="#/actualizarContaminante/{{idInventario}}/{{idCategoria}}/{{ContaminanteOS.COD_CONTAMINANTE}}" class="btn btn-warning" role="button" data-toggle="tooltip"
+                               data-placement="top" title="Editar Contaminante"><span class="glyphicon glyphicon-edit"></span></a>
+                            <button type="button" class="btn btn-danger" ng-click="eliminarContaminante(ContaminanteOS.COD_CONTAMINANTE)" data-toggle="tooltip" data-placement="top"
+                                    title="Eliminar Contaminante"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="panel-footer text-center">
+                <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+</div>

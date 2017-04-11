@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h3 class="panel-heading-btn panel-title">Reportes</h3>
+                </div>
+                <br>
+                <br>
+            </div>
+            <div class="panel-body text-center">
+
+                <form class="form-inline" ng-submit="consultarGrilla(busquedaOE)">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="palabraClave" placeholder="Término de búsqueda" maxlength="30" ng-model="busquedaOE.palabraClave">
+                    </div>
+                    <button type="submit" class="btn btn-default">Filtrar</button>
+                </form>
+
+            </div>
+
+            <!-- Table -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Inventario</th>
+                    <th>Autoridad Ambiental</th>
+                    <th>Año Fecha Fin</th>
+                    <th>Seleccionar&nbsp;<input type="checkbox" name="seleccionTodos" ng-model="seleccionTodos" ng-change="seleccionarTodosInventarios()"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <colgroup>
+                    <col class="col-md-6">
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                    <col class="col-md-2">
+                </colgroup>
+                <tr ng-repeat="InventarioOS in objetoSalida.respuesta.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                    <td>{{InventarioOS.A003OBJETO}}</td>
+                    <td>{{InventarioOS.SIGLA_AA}}</td>
+                    <td>{{InventarioOS.A003FECHA_FINAL | date:'MM/dd/yyyy'}}</td>
+                    <td><input type="checkbox" name="inventariosSeleccionados[]" value="{{InventarioOS.A003CODIGO}}" ng-model="inventariosSeleccionados[InventarioOS.A003CODIGO.toString()]"/></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="panel-footer text-center">
+                <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;"></ul>
+
+                <form class="form-inline text-center" ng-submit="generarReporteInventario()">
+                    <div class="form-group text-center">
+                        <select class="form-control" id="idReporte" placeholder="Reporte" required ng-model="idReporte">
+                            <option value="">Seleccione Un Reporte</option>
+                            <option ng-repeat="option in lstaReporte" value="{{option.IDITEM}}">{{option.VALORITEM}}</option>
+                        </select>
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-cloud-download"></span>&nbsp;Generar Reporte Seleccionado
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+</div>

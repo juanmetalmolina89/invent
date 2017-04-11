@@ -1,0 +1,85 @@
+body {
+    padding-top: 100px;
+}
+
+@media (min-width: 480px) {
+    body {
+        padding-top: 140px;
+    }
+}
+
+@media (min-width: 768px) {
+    body {
+        padding-top: 170px;
+    }
+}
+
+.form-group.required .control-label:after {
+    content: " *";
+    color: red;
+}
+
+.form-horizontal .control-label {
+    text-align: left;
+}
+
+.vertical-align {
+    display: table-cell;
+    float: none;
+    vertical-align: middle;
+}
+
+.panel-heading .panel-heading-btn {
+    padding-top: 10px;
+}
+
+td {
+    text-align: justify;
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.modal {
+}
+
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width: inherit;
+    height: inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+
+option[value="? undefined:undefined ?"] {
+    display: none;
+}
+
+option[value="? string:undefined ?"] {
+    display: none;
+}
+
+option[value="? object:null ?"] {
+    display: none;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
