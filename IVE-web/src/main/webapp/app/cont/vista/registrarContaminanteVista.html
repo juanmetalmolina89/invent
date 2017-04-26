@@ -15,10 +15,10 @@
             </div>
             <div class="panel-body">
 
-                <form class="form-horizontal" ng-submit="registrarContaminante()">
+                <form class="form-horizontal" >
                     <ng-include src="'app/cont/vista/informacionContaminanteVista.html'"></ng-include>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-success" ng-click="registrarContaminante()">Guardar</button>
                     </div>
                 </form>
 

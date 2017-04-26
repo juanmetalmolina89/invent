@@ -33,6 +33,11 @@
         $scope.itemsPerPage = 5;
         $scope.maxSize = 5;
 
+        $scope.filterValue = function($event){
+            if(isNaN(String.fromCharCode($event.keyCode))){
+                $event.preventDefault();
+            }
+        };
         $scope.consultarGrilla = function (filtro) {
 
             categoriaServicio.consultarGrilla(filtro)

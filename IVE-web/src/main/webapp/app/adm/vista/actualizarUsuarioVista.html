@@ -15,10 +15,10 @@
             </div>
             <div class="panel-body">
 
-                <form class="form-horizontal" ng-submit="actualizarUsuario()">
+                <form class="form-horizontal">
                     <ng-include src="'app/adm/vista/informacionUsuarioVista.html'"></ng-include>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button id="boton" name="boton"  class="btn btn-success" ng-click="actualizarUsuario()">Guardar</button>
                     </div>
                 </form>
 
