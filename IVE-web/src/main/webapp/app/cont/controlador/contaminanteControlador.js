@@ -17,6 +17,7 @@
                 'a013estadoregistro': 'A'
             }, 'idUsuario': $scope.idUsuario
         };
+        $scope.enviando = false; 
         $scope.categoriaOE = {'categoria': {'a009codigo': 0, 'a009idinventario': {'a003codigo': $scope.idInventario},}, 'idUsuario': $scope.idUsuario};
         $scope.inventarioOE = {'inventario': {'a003codigo': 0}, 'idUsuario': $scope.idUsuario};
         $scope.busquedaOE = {'palabraClave': '', 'idUsuario': $scope.idUsuario};
@@ -55,7 +56,7 @@
         };
 
         $scope.registrarContaminante = function () {
-
+            $scope.enviando = true; 
             contaminanteServicio.registrarContaminante($scope.contaminanteOE)
                 .then(function successCallback(response) {
 
@@ -73,16 +74,18 @@
                         }, function errorCallback(response) {
 
                             comunServicio.mensajeSalida(response);
+                            $scope.enviando = false; 
                         });
 
                 }, function errorCallback(response) {
 
                     comunServicio.mensajeSalida(response);
+                    $scope.enviando = false; 
                 });
         };
 
         $scope.actualizarContaminante = function () {
-
+            $scope.enviando = true; 
             contaminanteServicio.actualizarContaminante($scope.contaminanteOE)
                 .then(function successCallback(response) {
 
@@ -100,11 +103,13 @@
                         }, function errorCallback(response) {
 
                             comunServicio.mensajeSalida(response);
+                            $scope.enviando = false; 
                         });
 
                 }, function errorCallback(response) {
 
                     comunServicio.mensajeSalida(response);
+                    $scope.enviando = false; 
                 });
         };
 

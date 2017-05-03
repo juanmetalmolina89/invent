@@ -18,7 +18,7 @@
                 <form class="form-horizontal">
                     <ng-include src="'app/cat/vista/informacionCategoriaVista.html'"></ng-include>
                     <div class="form-group text-center">
-                        <button type="button" class="btn btn-success" ng-click="registrarCategoria()">Guardar</button>
+                        <button type="button" class="btn btn-success" ng-disabled="enviando" ng-click="registrarCategoria()">Guardar</button>
                     </div>
                 </form>
 

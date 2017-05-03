@@ -18,6 +18,7 @@
                 'ivetT017CatgemisCiiuList': []
             }, 'idUsuario': $scope.idUsuario
         };
+        $scope.enviando = false; 
         $scope.inventarioOE = {'inventario': {'a003codigo': 0}, 'idUsuario': $scope.idUsuario};
         $scope.busquedaOE = {'palabraClave': '', 'idUsuario': $scope.idUsuario};
         $scope.objetoSalida = {'respuesta': []};
@@ -81,7 +82,8 @@
 
                 $scope.categoriaOE.categoria.ivetT017CatgemisCiiuList = [];
             }
-
+            
+            $scope.enviando = true; 
             categoriaServicio.registrarCategoria($scope.categoriaOE)
                 .then(function successCallback(response) {
 
@@ -97,13 +99,14 @@
                             comunServicio.mensajeSalida(response);
                             $location.path('/consultarCategoria/' + $scope.idInventario);
                         }, function errorCallback(response) {
-
+                            $scope.enviando = false; 
                             comunServicio.mensajeSalida(response);
                         });
 
                 }, function errorCallback(response) {
 
                     comunServicio.mensajeSalida(response);
+                    $scope.enviando = false; 
                 });
         };
 
@@ -126,6 +129,8 @@
 
                 $scope.categoriaOE.categoria.ivetT017CatgemisCiiuList = [];
             }
+            
+            $scope.enviando = true; 
 
             categoriaServicio.actualizarCategoria($scope.categoriaOE)
                 .then(function successCallback(response) {
@@ -144,11 +149,13 @@
                         }, function errorCallback(response) {
 
                             comunServicio.mensajeSalida(response);
+                            $scope.enviando = false; 
                         });
 
                 }, function errorCallback(response) {
 
                     comunServicio.mensajeSalida(response);
+                    $scope.enviando = false; 
                 });
         };
 

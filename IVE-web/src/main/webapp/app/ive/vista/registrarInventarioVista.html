@@ -18,7 +18,7 @@
                 <form class="form-horizontal" >
                     <ng-include src="'app/ive/vista/informacionInventarioVista.html'"></ng-include>
                     <div class="form-group text-center">
-                        <button type="button" class="btn btn-success" ng-click="registrarInventario()">Guardar</button>
+                        <button type="button" class="btn btn-success" ng-disabled="enviando"  ng-click="registrarInventario()">Guardar</button>
                     </div>
                 </form>
 

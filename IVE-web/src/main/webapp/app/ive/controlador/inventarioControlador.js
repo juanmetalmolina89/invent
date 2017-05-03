@@ -13,6 +13,7 @@
             'adjunto': '',
             'idUsuario': $scope.idUsuario
         };
+        $scope.enviando = false; 
         $scope.busquedaOE = {'palabraClave': '', 'idUsuario': $scope.idUsuario};
         $scope.localizacion = {'a003iddivipolaDepto': '', 'a003iddivipolaMcpio': ''};
         $scope.mutipleList = {'inventcontaminaList': [], 'inventariofuenteList': []};
@@ -68,7 +69,6 @@
         };
 
         $scope.registrarInventario = function () {
-
             if ($scope.inventarioOE.inventario.a003fechaFinal <= $scope.inventarioOE.inventario.a003fechaInicial) {
 
                 comunServicio.mensaje('La Fecha Final del inventario debe ser mayor a la Fecha Inicial', 'error');
@@ -83,7 +83,7 @@
 
                         comunServicio.mensaje('Por favor adjunte el documento del soporte del informe', 'error');
                     } else {
-
+                        $scope.enviando = true; 
                         $scope.seleccionarInventarioContaminante();
                         $scope.seleccionarInventarioFuente();
 
@@ -107,26 +107,26 @@
                                                 comunServicio.mensajeSalida(response);
                                                 $location.path('/consultarInventario');
                                             }, function errorCallback(response) {
-
                                                 comunServicio.mensajeSalida(response);
+                                                $scope.enviando = false; 
                                             });
 
-                                    }, function errorCallback(response) {
-
+                                    }, function errorCallback(response) {                                        
                                         comunServicio.mensajeSalida(response);
+                                        $scope.enviando = false; 
                                     });
 
                             }, function errorCallback(response) {
 
                                 comunServicio.mensajeSalida(response);
+                                $scope.enviando = false; 
                             });
                     }
                 }
             }
         };
 
-        $scope.actualizarInventario = function () {
-
+        $scope.actualizarInventario = function () {            
             if ($scope.inventarioOE.inventario.a003fechaFinal <= $scope.inventarioOE.inventario.a003fechaInicial) {
 
                 comunServicio.mensaje('La Fecha Final del inventario debe ser mayor a la Fecha Inicial', 'error');
@@ -136,7 +136,8 @@
 
                     comunServicio.mensaje('Debe indicar la ubicación (geometría) del inventario', 'error');
                 } else {
-
+                    $scope.enviando = true;                    
+                    
                     $scope.seleccionarInventarioContaminante();
                     $scope.seleccionarInventarioFuente();
 
@@ -173,11 +174,13 @@
                                 }, function errorCallback(response) {
 
                                     comunServicio.mensajeSalida(response);
+                                    $scope.enviando = false; 
                                 });
 
                         }, function errorCallback(response) {
 
                             comunServicio.mensajeSalida(response);
+                            $scope.enviando = false; 
                         });
                 }
             }

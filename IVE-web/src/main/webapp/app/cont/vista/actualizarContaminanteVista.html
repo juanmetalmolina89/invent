@@ -18,7 +18,7 @@
                 <form class="form-horizontal">
                     <ng-include src="'app/cont/vista/informacionContaminanteVista.html'"></ng-include>
                     <div class="form-group text-center">
-                        <button type="button" class="btn btn-success" ng-click="actualizarContaminante()">Guardar</button>
+                        <button type="button" class="btn btn-success" ng-disabled="enviando"  ng-click="actualizarContaminante()">Guardar</button>
                     </div>
                 </form>
 

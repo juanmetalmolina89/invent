@@ -94,27 +94,31 @@ LEFT JOIN PART_T102_LISTA l2 ON l2.a102codigo = c.a009codigo
 LEFT JOIN IVET_T003_INVENTARIO i ON i.A003CODIGO = c.A009IDINVENTARIO;
 
 ---Vista para el manejo de los contaminantes
-CREATE OR REPLACE VIEW IVEV_004_CONTAMINANTE AS
-SELECT ca.a013codigo cod_contaminante,
-          ca.a013idcontaminante,
-          co.a005contaminante,
-          ca.a013valorcontaminante,
-          ca.a013idcategoriaemision id_categoria,
-          ct.a009nomcatemision,
-          ca.a013ftemetdfactoractiv,
-          ca.a013factoractividad,
-          ca.a013undmedfactoractiv,
-          ca.a013ftemetdfactoremis,
-          ca.a013factoremision,
-          ca.a013undmedfactoremis,
-          ca.a013emisiontotal,
-          ca.A013ESTADOREGISTRO,
-          i.a003codigo id_inventario
+  CREATE OR REPLACE FORCE VIEW "IVE"."IVEV_004_CONTAMINANTE" ("COD_CONTAMINANTE", "A013IDCONTAMINANTE", "A005CONTAMINANTE", "A013VALORCONTAMINANTE", "ID_CATEGORIA", "A009NOMCATEMISION", "A013FTEMETDFACTORACTIV", "A013FACTORACTIVIDAD", "A013UNDMEDFACTORACTIV", "A011UNIDADMEDIDA", "A013FTEMETDFACTOREMIS", "A013FACTOREMISION", "A013UNDMEDFACTOREMIS", "A012UNIDADMEDIDA", "A013EMISIONTOTAL", "A013ESTADOREGISTRO", "ID_INVENTARIO") AS 
+  SELECT ca.a013codigo cod_contaminante,
+			ca.a013idcontaminante,
+			co.a005contaminante,
+			ca.a013valorcontaminante,
+			ca.a013idcategoriaemision id_categoria,
+			ct.a009nomcatemision,
+			ca.a013ftemetdfactoractiv,
+			ca.a013factoractividad,          
+			ca.a013undmedfactoractiv,
+			um.a011unidadmedida,
+			ca.a013ftemetdfactoremis,
+			ca.a013factoremision,
+			ca.a013undmedfactoremis,
+			umfe.a012unidadmedida,
+			ca.a013emisiontotal,
+			ca.A013ESTADOREGISTRO,
+			i.a003codigo id_inventario
        FROM IVET_T013_CATEGCONTAMINA ca
-LEFT JOIN IVET_T005_CONTAMINANTE co ON co.a005codigo = ca.a013idcontaminante
-LEFT JOIN IVET_T009_CATEGEMISION ct ON ct.a009codigo = ca.a013idcategoriaemision
-LEFT JOIN IVET_T003_INVENTARIO i ON i.a003codigo = ct.a009idinventario
-WHERE ca.a013estadoregistro = 'A';
+			LEFT JOIN IVET_T005_CONTAMINANTE co ON co.a005codigo = ca.a013idcontaminante
+			LEFT JOIN IVET_T009_CATEGEMISION ct ON ct.a009codigo = ca.a013idcategoriaemision
+			LEFT JOIN IVET_T003_INVENTARIO i ON i.a003codigo = ct.a009idinventario
+			LEFT JOIN IVET_T012_UNIDADMEDIDAFACTOR umfe ON umfe.a012codigo = ca.a013undmedfactoremis
+			LEFT JOIN IVET_T011_UNIDADMEDIDA um ON um.a011codigo = ca.a013undmedfactoractiv
+			WHERE ca.a013estadoregistro = 'A';
 
 ---Vista para el manejo de catgorias CIUU
 CREATE OR REPLACE VIEW IVEV_005_CATEGORIA_CIIU AS
