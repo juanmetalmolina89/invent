@@ -42,7 +42,10 @@
             });
 
         $scope.consultarGrilla = function (filtro) {
-
+            if(filtro.palabraClave=="")
+            {
+                filtro.palabraClave="%";
+            }
             inventarioServicio.consultarGrilla(filtro)
                 .then(function successCallback(response) {
 

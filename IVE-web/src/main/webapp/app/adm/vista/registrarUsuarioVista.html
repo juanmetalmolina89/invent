@@ -15,10 +15,10 @@
             </div>
             <div class="panel-body">
 
-                <form class="form-horizontal" >
-                    <ng-include src="'app/adm/vista/informacionUsuarioVista.html'"></ng-include>
+                <form class="form-horizontal"  name ="formularioGral">
+                    <div ng-include ="'app/adm/vista/informacionUsuarioVista.html'"></div>
                     <div class="form-group text-center">
-                        <button type="button" class="btn btn-success" ng-click="registrarUsuario()">Guardar</button>
+                        <button type="submit" class="btn btn-success" ng-disabled="enviando || formularioGral.$invalid" ng-click="formularioGral.$valid && registrarUsuario()">Guardar</button>
                     </div>
                 </form>
 

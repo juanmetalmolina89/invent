@@ -39,7 +39,10 @@
                 templateUrl: 'app/comun/vista/comunVista.html',
                 controller: 'comunControlador'
             })
-
+            .when('/ive/token/:tkn', {
+                templateUrl: 'app/comun/vista/comunVista.html',
+                controller: 'comunControlador'
+            })
             /*admUsuarioModulo*/
             .when('/ingresarSistema', {
                 templateUrl: 'app/adm/vista/ingresarSistemaVista.html',

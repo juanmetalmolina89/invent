@@ -1,16 +1,16 @@
 body {
-    padding-top: 100px;
+    /*padding-top: 100px;*/
 }
 
 @media (min-width: 480px) {
     body {
-        padding-top: 140px;
+        /*padding-top: 140px;*/
     }
 }
 
 @media (min-width: 768px) {
     body {
-        padding-top: 170px;
+        /*padding-top: 170px;*/
     }
 }
 

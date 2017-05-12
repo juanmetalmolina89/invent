@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="aprobarRechazarInventario">Aprobar Inventario</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" name ="formularioGral">
 
                     <div class="form-group required">
                         <div class="col-md-3">
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group text-center">
-                        <button type="button" class="btn btn-success" ng-click="enviarAprobarRechazarInventario(InventarioOS.A003CODIGO)">Guardar</button>
+                        <button type="submit" class="btn btn-success" ng-disabled="formularioGral.$invalid" ng-click="formularioGral.$valid && enviarAprobarRechazarInventario(InventarioOS.A003CODIGO)">Guardar</button>
                     </div>
 
                 </form>
