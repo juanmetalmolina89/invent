@@ -2,6 +2,7 @@ package gov.mads.invent.ive.fachada;
 
 import gov.mads.invent.comun.vista.BusquedaOE;
 import gov.mads.invent.comun.vista.ObjetoSalida;
+import gov.mads.invent.ive.vista.ConsultarInventariosFechaOE;
 import gov.mads.invent.ive.vista.InventarioOE;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
@@ -28,4 +29,6 @@ public interface IInventarioFAC {
     ObjetoSalida consultarInventarioContaminante(InventarioOE objetoEntrada);
 
     ObjetoSalida cambiarEstadoInventario(InventarioOE objetoEntrada);
+    
+    ObjetoSalida consultarInventarioFecha(ConsultarInventariosFechaOE objetoEntrada) throws Exception;
 }

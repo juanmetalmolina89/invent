@@ -8,6 +8,7 @@ import gov.mads.invent.comun.vista.BusquedaOE;
 import gov.mads.invent.comun.vista.CodError;
 import gov.mads.invent.comun.vista.ObjetoSalida;
 import gov.mads.invent.ive.modelo.IInventarioDAO;
+import gov.mads.invent.ive.vista.ConsultarInventariosFechaOE;
 import gov.mads.invent.ive.vista.InventarioOE;
 import oracle.jdbc.OracleTypes;
 import org.jose4j.json.internal.json_simple.JSONObject;
@@ -398,6 +399,32 @@ public class InventarioDAO extends GenericoDAO implements IInventarioDAO {
             parametros.add(new SentenciaParametroDAO("p_A003CODIGO", objetoEntrada.getInventario().getA003codigo(), SentenciaTipoParametroDAO.ENTRADA, OracleTypes.NUMBER));
             parametros.add(new SentenciaParametroDAO("p_A003OBS_RECHAZO", objetoEntrada.getInventario().getA003obsRechazo(), SentenciaTipoParametroDAO.ENTRADA, OracleTypes.VARCHAR));
             parametros.add(new SentenciaParametroDAO("p_estpasa", objetoEntrada.getInventario().getA003estadoInventario().getA102codigo(), SentenciaTipoParametroDAO.ENTRADA, OracleTypes.NUMBER));
+            sentencia.setParametros(parametros);
+            objetoSalida = this.ejecutar(sentencia, objetoSalida);
+
+        } catch (Exception e) {
+
+            objetoSalida.setCodError(CodError.ERROR_INTERNO);
+            objetoSalida.setMsgError(e.getMessage());
+        }
+
+        return objetoSalida;
+    }
+    
+    @Override
+    public ObjetoSalida consultarInventarioFecha(ConsultarInventariosFechaOE objetoEntrada) {
+
+        ObjetoSalida objetoSalida = new ObjetoSalida();
+
+        try {
+
+            SentenciaDAO sentencia = new SentenciaDAO("PK_IVE_INVENTARIO.Pr_ConsultarInventarioPorFecha", objetoEntrada.getIdUsuario());
+            List<SentenciaParametroDAO> parametros = new ArrayList<SentenciaParametroDAO>();
+            
+            parametros.add(new SentenciaParametroDAO("p_OPERACION", objetoEntrada.getOperacion(), SentenciaTipoParametroDAO.ENTRADA, OracleTypes.VARCHAR));
+            java.sql.Date fecha = (objetoEntrada.getFecha() == null) ? null : new java.sql.Date(objetoEntrada.getFecha().getTime());
+            parametros.add(new SentenciaParametroDAO("p_FECHA", fecha, SentenciaTipoParametroDAO.ENTRADA, OracleTypes.DATE));
+            //parametros.add(new SentenciaParametroDAO("p_estpasa", objetoEntrada.getInventario().getA003estadoInventario().getA102codigo(), SentenciaTipoParametroDAO.ENTRADA, OracleTypes.NUMBER));
             sentencia.setParametros(parametros);
             objetoSalida = this.ejecutar(sentencia, objetoSalida);
 

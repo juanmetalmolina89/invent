@@ -6,6 +6,7 @@ import gov.mads.invent.comun.vista.BusquedaOE;
 import gov.mads.invent.comun.vista.ObjetoSalida;
 import gov.mads.invent.ive.fachada.IInventarioFAC;
 import gov.mads.invent.ive.fachada.impl.InventarioFAC;
+import gov.mads.invent.ive.vista.ConsultarInventariosFechaOE;
 import gov.mads.invent.ive.vista.InventarioOE;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
@@ -146,6 +147,18 @@ public class InventarioSERV {
 
         fachada = new InventarioFAC();
         ObjetoSalida objetoSalida = fachada.cambiarEstadoInventario(objetoEntrada);
+        return API.retornarRespuesta(objetoSalida);
+    }
+    
+    @POST
+    @Path("/consultarinventariofecha")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    //@JWT
+    public Response consultarInventarioFecha(ConsultarInventariosFechaOE objetoEntrada) throws Exception {
+
+        fachada = new InventarioFAC();
+        ObjetoSalida objetoSalida = fachada.consultarInventarioFecha(objetoEntrada);
         return API.retornarRespuesta(objetoSalida);
     }
 }

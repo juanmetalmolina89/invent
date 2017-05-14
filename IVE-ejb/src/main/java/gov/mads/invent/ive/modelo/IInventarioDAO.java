@@ -2,6 +2,7 @@ package gov.mads.invent.ive.modelo;
 
 import gov.mads.invent.comun.vista.BusquedaOE;
 import gov.mads.invent.comun.vista.ObjetoSalida;
+import gov.mads.invent.ive.vista.ConsultarInventariosFechaOE;
 import gov.mads.invent.ive.vista.InventarioOE;
 import org.jose4j.json.internal.json_simple.JSONObject;
 
@@ -40,4 +41,6 @@ public interface IInventarioDAO {
     ObjetoSalida consultarAdjunto(Integer codigoInventario, Integer idUsuario);
 
     ObjetoSalida cambiarEstadoInventario(InventarioOE objetoEntrada);
+    
+    ObjetoSalida consultarInventarioFecha(ConsultarInventariosFechaOE objetoEntrada);
 }

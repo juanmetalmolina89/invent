@@ -12,9 +12,11 @@ import gov.mads.invent.comun.vista.ObjetoSalida;
 import gov.mads.invent.ive.fachada.IInventarioFAC;
 import gov.mads.invent.ive.modelo.IInventarioDAO;
 import gov.mads.invent.ive.modelo.impl.InventarioDAO;
+import gov.mads.invent.ive.vista.ConsultarInventariosFechaOE;
 import gov.mads.invent.ive.vista.InventarioOE;
 import gov.mads.invent.utl.fachada.IListadosFAC;
 import gov.mads.invent.utl.fachada.impl.ListadosFAC;
+import java.io.BufferedReader;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.jose4j.json.internal.json_simple.JSONObject;
@@ -22,12 +24,23 @@ import org.jose4j.json.internal.json_simple.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.Object;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.jose4j.json.internal.json_simple.JSONObject;
+
 
 public class InventarioFAC implements IInventarioFAC {
 
@@ -315,5 +328,93 @@ public class InventarioFAC implements IInventarioFAC {
             throw new Exception(e);
         }
         return archivoAdjunto;
+    }
+
+    @Override
+    public ObjetoSalida consultarInventarioFecha(ConsultarInventariosFechaOE objetoEntrada) throws Exception {
+        accesoDatos = new InventarioDAO();
+        ObjetoSalida obj = accesoDatos.consultarInventarioFecha(objetoEntrada);
+        ObjetoSalida OS =  new ObjetoSalida();
+       ///* 
+         if(obj.esRespuestaOperacionCorrecta()){
+            List<HashMap<String, Object>> respuesta = new ArrayList<>();
+            for (HashMap<String, Object> item : obj.getRespuesta()) {
+                    Integer Object;
+
+                    String id_ive = (item.get("A003CODIGO") == null) ? null : item.get("A003CODIGO").toString();
+                    String objeto_ive = (item.get("A003OBJETO") == null) ? null : item.get("A003OBJETO").toString();
+                    java.sql.Timestamp fechainiive = (item.get("A003FECHA_INICIAL") == null) ? null : (java.sql.Timestamp)item.get("A003FECHA_INICIAL");
+                    Long fechini = (fechainiive == null) ? null : fechainiive.getTime();
+                    java.util.Date fecha_ini_ive = (fechini == null) ? null : new java.util.Date( fechini );
+                    java.sql.Timestamp fechafinive = (item.get("A003FECHA_FINAL") == null) ? null : (java.sql.Timestamp)item.get("A003FECHA_FINAL");
+                    Long fechfin = (fechafinive == null) ? null : fechafinive.getTime();
+                    java.util.Date fecha_fin_ive = (fechfin == null) ? null : new java.util.Date( fechfin );
+                    
+                    String id_estado = (item.get("A003ESTADO_INVENTARIO") == null) ? null : item.get("A003ESTADO_INVENTARIO").toString();
+                    String desc_est_ive = (item.get("DESC_ESTADO_INVENTARIO") == null) ? null : item.get("DESC_ESTADO_INVENTARIO").toString();
+                    String geojson = (item.get("A004GEOMETRIA")== null) ? null : item.get("A004GEOMETRIA").toString();                    
+                    JSONObject salida = new JSONObject();
+                    String autoridadambiental = (item.get("SIGLA_AA")== null) ? null : item.get("SIGLA_AA").toString();
+                    String tipocategoria = (item.get("A102VALOR")== null) ? null : item.get("A102VALOR").toString();
+                    salida.put("idUsuario", objetoEntrada.getIdUsuario());
+                    salida.put("idModulo", objetoEntrada.getIdModulo());
+                    salida.put("idSistema", objetoEntrada.getIdSistema());
+                    salida.put("geoJson", geojson);
+                    System.out.println(geojson);
+                    System.out.println(fecha_ini_ive.toString());
+                    System.out.println(fecha_fin_ive.toString());
+                    String fechinicio = new java.text.SimpleDateFormat("yyyy-MM-dd").format(fecha_ini_ive);
+                    String fechfinal = new java.text.SimpleDateFormat("yyyy-MM-dd").format(fecha_fin_ive);
+                    System.out.println(fechinicio);
+                    System.out.println(fechfinal);
+                    
+                    
+                    String objt = "{\"ID_IVE\":\""+id_ive+"\",\"ESTADO\":\""+(id_estado + ":" + desc_est_ive)+"\","
+                    + "\"AUTORIDAD_AMBIENTAL\":\""+autoridadambiental+"\",\"FECHA_INICIO\":\""+fechinicio+"\","
+                    + "\"FECHA_FIN\":\""+fechfinal+"\",\"TIPO_CATEGORIA\":\""+tipocategoria+"\",\"MP\":null,"
+                    + "\"SOx\":null,\"NOx\":null,\"CO\":null,"
+                    + "\"OBJETO\":\""+objeto_ive+"\"}";
+                    System.out.println(objt); 
+
+                    salida.put("Campos", objt);
+                    salida.put("operacion", objetoEntrada.getOperacionComponente());
+                    salida.put("tipoGeometria",objetoEntrada.getTipoGeometria());
+                    System.out.println(salida.toJSONString());//*/
+             ///*
+                    StringEntity params =new StringEntity(salida.toJSONString(),"UTF-8");
+                    HttpClient client = new DefaultHttpClient();
+                    System.out.println("request");
+                    HttpPost request = new HttpPost(objetoEntrada.getUrl());                
+                    System.out.println(objetoEntrada.getUrl());
+        //Set Headers
+                    System.out.println("Set Headers");  
+                    request.setHeader("Accept", "application/json");
+                    request.setHeader("Content-Type","application/json;charset=UTF-8" );
+                    request.setEntity(params);
+                    HttpResponse response = client.execute(request);
+                    StringBuilder result = new StringBuilder();
+                    BufferedReader reader;
+                    InputStream inputStream = response.getEntity().getContent();
+                    reader = new BufferedReader(new InputStreamReader(inputStream));
+                    String inputLine;
+                    while ((inputLine = reader.readLine()) != null) {
+                        result.append(inputLine);
+                    }
+                    //se crea la nueva respuesta y se retorna
+                    System.out.println(result);
+
+                    HashMap<String, Object> a = new HashMap<>();
+                    a.put("respuesta", result);
+                    respuesta.add(a);    
+
+            
+            }
+            OS.setRespuesta(respuesta);
+            OS.setCodError(obj.getCodError());
+
+            return OS;
+        }
+        else
+            return obj; 
     }
 }
